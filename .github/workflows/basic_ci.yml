@@ -1,0 +1,30 @@
+name: Basic CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        locale: [ja, en]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Validate locale files
+      run: |
+        python -m json.tool config/locales/${{ matrix.locale }}.json
+    
+    - name: Run safety tests
+      run: |
+        python tests/safety_test.py
