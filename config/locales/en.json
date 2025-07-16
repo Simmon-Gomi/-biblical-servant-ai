@@ -1,0 +1,23 @@
+{
+  "crisis_keywords": [
+    "suicide",
+    "kill myself",
+    "self-harm",
+    "end it all",
+    "no reason to live",
+    "want to die",
+    "nobody helps me"
+  ],
+  "emergency_contacts": {
+    "crisis_hotline": {
+      "name": "Crisis Hotline",
+      "number": "988",
+      "hours": "24/7"
+    },
+    "church_emergency": {
+      "name": "Church Emergency",
+      "number": "[Set by church]",
+      "hours": "Varies"
+    }
+  }
+}
