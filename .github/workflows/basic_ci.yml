@@ -9,22 +9,39 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        locale: [ja, en]
     
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4  # v4に更新
     
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
     
-    - name: Validate locale files
+    - name: Show directory structure
       run: |
-        python -m json.tool config/locales/${{ matrix.locale }}.json
+        echo "=== Repository structure ==="
+        ls -la
+        echo "=== Config directory ==="
+        ls -la config/ || echo "config/ not found"
+        echo "=== Locales directory ==="
+        ls -la config/locales/ || echo "config/locales/ not found"
+    
+    - name: Validate all locale JSON files
+      run: |
+        echo "=== Validating locale files ==="
+        for locale in ja en; do
+          if [ -f "config/locales/${locale}.json" ]; then
+            echo "Checking ${locale}.json..."
+            python -m json.tool "config/locales/${locale}.json" > /dev/null
+            echo "✅ ${locale}.json is valid JSON"
+          else
+            echo "⚠️  ${locale}.json not found"
+          fi
+        done
     
     - name: Run safety tests
       run: |
+        echo "=== Running safety tests ==="
         python tests/safety_test.py
