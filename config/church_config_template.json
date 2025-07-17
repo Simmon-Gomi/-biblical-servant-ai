@@ -1,6 +1,6 @@
 ```json
 {
-  "church_name": "あなたの教会名",
+   "church_name": "あなたの教会名",
   "pastor_name": "主任牧師名",  
   "church_contact": "00-0000-0000",
   "preferred_translation": "新共同訳",
